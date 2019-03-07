@@ -1,0 +1,92 @@
+[meta title:"Principles: Emergence" /]
+
+[i]back to [a href:".."]Principles[/a][/i]
+
+[Header
+  title:"Emergence"
+  subtitle:"Simple parts can create a complex whole." /]
+
+// [FullWidth]
+// [img src:'https://www.learninginnovationslab.org/wp-content/uploads/2017/09/flock-of-flying-birds-desktop-wallpaper.jpg'/]
+[img src:'static/flock.jpg'/]
+// [/FullWidth]
+
+The study of systems starts with the recognition that systems are [i]emergent[/i]. This means that systems behave in ways that go beyond the behavior of their parts.
+
+* Birds flock in complex formations, even though no bird's brain contains a plan for the pattern.
+* Water in a cup can flow or freeze, even though a molecule of water cannot do any of these by itself.
+* A marketplace can (sometimes!) allocate resources to benefit society, even though each market participant is just trying to operate a successful business.
+
+To understand an emergent system, you cannot merely study the behavior of its parts and stop there. New behaviors come from *interactions* between these parts, and a new set of intellectual tools are required to reason about these behaviors. This includes several principles cataloged in this index, including [feedback](), [critical phenomena](), and [evolution]().
+
+Before we get into these powerful intellectual tools, let's take our first direct glimpse of emergence in action.
+
+# Our first model
+
+In thinking about systems, it is helpful to start with simple models which are easy to think about and run on computers. So let's start with a super-simple model – freezing particles.
+
+[FlexRow]
+[div]
+[Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
+     numParticles: 10 clickToFreeze: false
+     frameMs: 200 stepsPerFrame: 1/]
+Black particles are not frozen. They bounce around randomly.
+[/div]
+[div]
+[Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
+     numParticles: 10 preFreeze: true
+     frameMs: 200 stepsPerFrame: 1/]
+Green particles are frozen. They sit still.
+[/div]
+[div]
+[Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
+     numParticles: 10 preSeed: true resetOnFrozen: true
+     frameMs: 200 stepsPerFrame: 1/]
+When a black particle touches a green particle, it freezes into a green particle
+[/div]
+[/FlexRow]
+
+The *parts* of this system are the particles. Particles are simple – all they do is move randomly and stick together sometimes. We would expect the behavior of a system made of many of these particles to be just as simple. One good guess: blobs of particles will grow around any frozen "seeds".
+
+So let's find out! Here is a system with one hundred times as many particles as the little boxes above:
+
+[Dfa cellSize: 3 gridWidth: 100 gridHeight: 100
+     numParticles: 1000
+     frameMs: 20 stepsPerFrame: 1 ref: 'fancyDfa'/]
+
+When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancyDfa.component.go()`]drop a frozen seed in the center[/button].
+
+The result doesn't match our guess at all. Instead of forming a blob, freezing particles grow outward from the seed, like a tree's roots or electric sparks.
+
+[div style:`{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}`]
+[img src:'static/roots.jpg' height:200 style:`{width: 'unset'}`/]
+[img src:'static/sparks.jpg' height:200 style:`{width: 'unset'}` /]
+[/div]
+
+Together, the particles make a pattern which was not encoded in their rules. We didn't tell the particles to make a branching pattern. The pattern *emerged*.
+
+To see how the pattern continues, at a higher level of scale, here is a system with nine times as many particles as last time:
+
+[Dfa cellSize: 1 gridWidth: 300 gridHeight: 300
+     numParticles: 9000
+     frameMs: 0 stepsPerFrame: 20 ref: 'fancierDfa'/]
+
+When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancierDfa.component.go()`]drop a frozen seed in the center[/button].
+
+# TODO
+
+[ul]
+[li]More models
+  [ul]
+  [li]Something biological[/li]
+  [li]Something social[/li]
+  [/ul]
+[/li]
+[li]More examples of emergence[/li]
+[li]More conceptual points
+  [ul]
+  [li]complex patterns can have simple causes[/li]
+  [li]systems made of different "stuff" can exhibit similar behaviors at a large scale (universality)[/li]
+  [/ul]
+[/li]
+[/ul]
