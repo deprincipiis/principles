@@ -73,6 +73,14 @@ To see how the pattern continues, at a higher level of scale, here is a system w
 
 When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancierDfa.component.go()`]drop a frozen seed in the center[/button].
 
+# Credits
+
+* Text: Joshua Horowitz & Albert Wegner
+* Simulation: Joshua Horowitz
+* Flock of birds: [Walter Baxter / A murmuration of starlings at Gretna / CC BY-SA 2.0](https://commons.wikimedia.org/wiki/File:Starling_murmuration.jpg)
+* Roots: [Cesar Paes Barreto / Stilt roots of a Rhizophora mangrove tree / free](https://commons.wikimedia.org/wiki/File:Roots_by_cesarpb.jpg)
+* Lightning: [Scotto Bear / sunset/lightning / CC BY-SA 2.0](https://commons.wikimedia.org/wiki/File:Scottobear_-_051231_sun_(by-sa).jpg)
+
 # TODO
 
 [ul]

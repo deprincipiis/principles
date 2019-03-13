@@ -2,4 +2,6 @@
 
 [Header title:"Principles" /]
 
-* [Emergence](./emergence)
+* [Emergence](./emergence/)
+* [Abstraction](./abstraction/)
+* [Phase Transition](./phase-transition/)
