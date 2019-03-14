@@ -9,7 +9,7 @@ This development process is a work in progress. If something stops working, plea
 
 ## Installation
 
-Initial set-up:
+Clone the repo into a directory, then inside that directory run:
 ```
 npm install
 ```
