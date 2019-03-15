@@ -28,7 +28,13 @@ make serve
 
 You can edit files and re-run `make`. It will intelligently avoid re-compiling unchanged files. However, you will need to refresh your browser by hand after doing this.
 
-(Idyll includes a nice auto-reresh feature, but it doesn't work so well with multiple source files. If you'd like to give it a try, run `make watch`.)
+If you run
+```
+make watch
+```
+then `make` will automatically re-run when you change the `src` directory. Nice!
+
+(Idyll includes its own auto-reresh feature, but it doesn't work well with multiple source files, so we're not using it right now.)
 
 ## Publishing
 

@@ -19,10 +19,7 @@ clean:
 	rm -rf build
 
 watch:
-	$(NODE_BIN)/idyll --no-ssr=true -i src/index.idyll --static src/_static -o build
-	$(NODE_BIN)/idyll --no-ssr=true -i src/emergence/index.idyll --static src/emergence/static -o build/emergence
-	$(NODE_BIN)/idyll --no-ssr=true -i src/abstraction/index.idyll --static src/abstraction/static -o build/abstraction
-	$(NODE_BIN)/idyll --no-ssr=true -i src/phase-transition/index.idyll --static src/phase-transition/static -o build/phase-transition
+	watch make src
 
 serve: build
 	$(NODE_BIN)/http-server build
