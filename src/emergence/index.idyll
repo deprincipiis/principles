@@ -8,7 +8,7 @@
 
 // [FullWidth]
 // [img src:'https://www.learninginnovationslab.org/wp-content/uploads/2017/09/flock-of-flying-birds-desktop-wallpaper.jpg'/]
-[img src:'static/flock.jpg'/]
+[img src:'static/flock.jpg' alt:'A flock of starlings'/]
 // [/FullWidth]
 
 The study of systems starts with the recognition that systems are [i]emergent[/i]. This means that systems behave in ways that go beyond the behavior of their parts.
@@ -59,8 +59,8 @@ When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancyDfa
 The result doesn't match our guess at all. Instead of forming a blob, freezing particles grow outward from the seed, like a tree's roots or electric sparks.
 
 [div style:`{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}`]
-[img src:'static/roots.jpg' height:200 style:`{width: 'unset'}`/]
-[img src:'static/sparks.jpg' height:200 style:`{width: 'unset'}` /]
+[img src:'static/roots.jpg' height:200 style:`{width: 'unset'}` alt:'Roots of a mangrove tree'/]
+[img src:'static/sparks.jpg' height:200 style:`{width: 'unset'}` alt:'Lightning'/]
 [/div]
 
 Together, the particles make a pattern which was not encoded in their rules. We didn't tell the particles to make a branching pattern. The pattern *emerged*.
@@ -80,21 +80,3 @@ When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancierD
 * Flock of birds: [Walter Baxter / A murmuration of starlings at Gretna / CC BY-SA 2.0](https://commons.wikimedia.org/wiki/File:Starling_murmuration.jpg)
 * Roots: [Cesar Paes Barreto / Stilt roots of a Rhizophora mangrove tree / free](https://commons.wikimedia.org/wiki/File:Roots_by_cesarpb.jpg)
 * Lightning: [Scotto Bear / sunset/lightning / CC BY-SA 2.0](https://commons.wikimedia.org/wiki/File:Scottobear_-_051231_sun_(by-sa).jpg)
-
-# TODO
-
-[ul]
-[li]More models
-  [ul]
-  [li]Something biological[/li]
-  [li]Something social[/li]
-  [/ul]
-[/li]
-[li]More examples of emergence[/li]
-[li]More conceptual points
-  [ul]
-  [li]complex patterns can have simple causes[/li]
-  [li]systems made of different "stuff" can exhibit similar behaviors at a large scale (universality)[/li]
-  [/ul]
-[/li]
-[/ul]
