@@ -25,7 +25,7 @@ Before we get into these powerful intellectual tools, let's take our first direc
 
 In thinking about systems, it is helpful to start with simple models which are easy to think about and run on computers. So let's start with a super-simple model – freezing particles.
 
-[FlexRow]
+[div className:"FlexRow"]
 [div]
 [Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
      numParticles: 10 clickToFreeze: false
@@ -44,7 +44,7 @@ Green particles are frozen. They sit still.
      frameMs: 200 stepsPerFrame: 1/]
 When a black particle touches a green particle, it freezes into a green particle
 [/div]
-[/FlexRow]
+[/div]
 
 The *parts* of this system are the particles. Particles are simple – all they do is move randomly and stick together sometimes. We would expect the behavior of a system made of many of these particles to be just as simple. One good guess: blobs of particles will grow around any frozen "seeds".
 
