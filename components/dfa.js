@@ -70,7 +70,7 @@ class Dfa extends React.Component {
       <VisibilitySensor onChange={this.onVisibilityChange}>
         <Canvas width={cellSize * gridWidth} height={cellSize * gridHeight}
                 style={{ display: 'block', margin: '20px auto', background: 'white',
-                         filter: isVisible ? '' : 'brightness(75%)'}} 
+                         filter: isVisible ? '' : 'blur(4px)'}}
                 renderCanvas={this.renderCanvas}
                 onClick={clickToFreeze ? () => this.initialize(true) : undefined}/>
       </VisibilitySensor>
