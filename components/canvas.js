@@ -1,34 +1,21 @@
 const React = require('react')
 
 
-class Canvas extends React.Component {
-  constructor(props) {
-    super(props)
-    this.canvasRef = React.createRef()
-  }
+const Canvas = ({renderCanvas, ...otherProps}) => {
+  const canvasRef = React.useRef()
+  const canvasContext = React.useRef()
 
-  render() {
-    const { renderCanvas, ...otherProps } = this.props
-
-    return <canvas {...otherProps} ref={this.canvasRef}/>
-  }
-
-  componentDidMount() {
-    this.updateCanvas()
-  }
-
-  componentDidUpdate() {
-    this.updateCanvas()
-  }
-
-  updateCanvas() {
-    if (!this.canvasContext && this.canvasRef.current) {
-      this.canvasContext = this.canvasRef.current.getContext('2d')
+  React.useEffect(() => {
+    if (!canvasContext.current && canvasRef.current) {
+      canvasContext.current = canvasRef.current.getContext('2d')
     }
-    if (this.canvasContext) {
-      this.props.renderCanvas(this.canvasContext)
+    if (canvasContext.current) {
+      renderCanvas(canvasContext.current)
     }
-  }
+  })
+
+  return <canvas {...otherProps} ref={canvasRef}/>
 }
+
 
 module.exports = Canvas
