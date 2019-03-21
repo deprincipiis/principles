@@ -19,7 +19,7 @@ clean:
 	rm -rf build
 
 watch:
-	watch make src
+	$(NODE_BIN)/watch make src components
 
 serve: build
 	$(NODE_BIN)/http-server build
