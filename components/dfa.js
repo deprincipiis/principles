@@ -5,8 +5,6 @@ const Canvas = require('./canvas')
 const color = require('color')
 const VisibilitySensor = require('react-visibility-sensor').default;
 
-window.color = color
-
 function mod(a, b) {
   return ((a % b) + b) % b
 }
