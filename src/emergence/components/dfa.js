@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import _ from 'lodash'
-import Canvas from './canvas'
 import color from 'color'
 import {useVisibilitySensor, useTimeout} from 'rooks'
-import {useInterval} from './hooks'
+
+import Canvas from '../../../components/canvas'
+import {useInterval} from '../../../components/hooks'
+
 import DfaModel from './dfa-model'
 
 

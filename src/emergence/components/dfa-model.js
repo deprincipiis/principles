@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import seedrandom from 'seedrandom'
-import { mod } from './utils'
+
+import { mod } from '../../../components/utils'
 
 
 // This is the model for the diffusion-limited aggregation model used in "Emergence".
