@@ -30,6 +30,7 @@ export default function Dfa ({
 
   const rootNode = useRef(null);
   let [model, setModel] = useState()
+  let [hasRendered, setHasRendered] = useState()
   const {isVisible} = useVisibilitySensor(rootNode, {scrollDebounce: 20})
 
   const initialize = () => {
@@ -63,7 +64,9 @@ export default function Dfa ({
   }, frameMs, true)
 
   const renderCanvas = (context) => {
-    if (!model || !isVisible) { return }
+    if (!model) { return }
+    if (!isVisible && hasRendered) { return }
+    setHasRendered(true)
 
     context.clearRect(0,0, cellSize * gridWidth, cellSize * gridHeight)
 
