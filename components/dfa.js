@@ -1,97 +1,75 @@
-const React = require('react')
-const _ = require('lodash')
-const seedrandom = require('seedrandom')
-const Canvas = require('./canvas')
-const color = require('color')
-const VisibilitySensor = require('react-visibility-sensor').default;
+import React, { useEffect, useState, useRef } from 'react'
+import _ from 'lodash'
+import Canvas from './canvas'
+import color from 'color'
+import {useVisibilitySensor, useTimeout} from 'rooks'
+import {useInterval} from './hooks'
+import DfaModel from './dfa-model'
 
-function mod(a, b) {
-  return ((a % b) + b) % b
-}
 
-class Dfa extends React.Component {
-  state = {}
+// This is the view for the diffusion-limited aggregation model used in "Emergence".
 
-  initialize = (freeze) => {
-    const { seed, numParticles, gridWidth, gridHeight, preFreeze } = this.props
+export default function Dfa ({
+  // SIMULATION
+  seed,
+  numParticles,
+  gridWidth,
+  gridHeight,
+  // INITIALIZATION
+  preFreeze,  // start with all particles frozen
+  preSeed,  // start with a seed in the center
+  // DISPLAY
+  cellSize,
+  // ANIMATION
+  frameMs,
+  stepsPerFrame,
+  // BEHAVIOR
+  resetOnFrozen,  // automatically reset the simulation when all particles freeze
+  dropSeedTime,  // reset to drop a seed
+}) {
 
-    const rand = seedrandom(seed)
-    const particles = _.range(numParticles).map(() => ({
-      position: [
-        Math.floor(rand() * gridWidth),
-        Math.floor(rand() * gridHeight)
-      ],
-      isFrozen: preFreeze,
-    }))
+  const rootNode = useRef(null);
+  let [model, setModel] = useState()
+  const {isVisible} = useVisibilitySensor(rootNode, {scrollDebounce: 20})
 
-    // console.log(particles)
+  const initialize = () => {
+    let model = new DfaModel({seed, numParticles, gridWidth, gridHeight});
+    if (preFreeze) { model.freezeAll() }
+    if (preSeed) { model.dropSeed() }
+    setModel(model)
+  }
 
-    const cellIsFrozen = _.range(gridWidth).map(() => [])
-    if (freeze) {
-      const x = Math.floor(gridWidth / 2), y = Math.floor(gridHeight / 2)
-      particles.push({
-        position: [x, y],
-        isFrozen: true
-      })
-      cellIsFrozen[x][y] = true
+  useEffect(initialize, [])
+
+  useEffect(() => {
+    if (dropSeedTime) {
+      model.dropSeed()
+      setModel(model)
     }
+  }, [dropSeedTime])
 
-    this.setState({ particles, cellIsFrozen })
-  }
+  const {start: startResetTimeout, clear: clearResetTimeout} = useTimeout(() => {
+    initialize()
+    clearResetTimeout()
+  }, 1000)
 
-  go = () => {
-    const { gridWidth, gridHeight } = this.props
-    const { particles, cellIsFrozen } = this.state
+  useInterval(() => {
+    if (!model || !isVisible) { return }
+    _.range(stepsPerFrame).forEach(() => model.step())
+    if (resetOnFrozen && model.allFrozen()) {
+      startResetTimeout()
+    }
+    setModel(model)
+  }, frameMs, true)
 
-    const x = Math.floor(gridWidth / 2), y = Math.floor(gridHeight / 2)
-    particles.push({
-      position: [x, y],
-      isFrozen: true
-    })
-    cellIsFrozen[x][y] = true
-
-    this.setState({ particles, cellIsFrozen })
-  }
-
-  componentDidMount() {
-    this.initialize(this.props.preSeed)
-    this.interval = setInterval(this.onInterval, this.props.frameMs)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
-  }
-
-  render() {
-    const { cellSize, gridWidth, gridHeight, clickToFreeze } = this.props
-    const { isVisible } = this.state
-
-    return (
-      <VisibilitySensor onChange={this.onVisibilityChange}>
-        <Canvas width={cellSize * gridWidth} height={cellSize * gridHeight}
-                style={{ display: 'block', margin: '20px auto', background: 'white',
-                         filter: isVisible ? '' : 'blur(4px)'}}
-                renderCanvas={this.renderCanvas}
-                onClick={clickToFreeze ? () => this.initialize(true) : undefined}/>
-      </VisibilitySensor>
-    )
-  }
-
-  onVisibilityChange = (isVisible) => {
-    this.setState({ isVisible })
-  }
-
-  renderCanvas = (context) => {
-    const { cellSize, gridWidth, gridHeight } = this.props;
-    const { particles } = this.state;
-
-    if (!particles) { return }
+  const renderCanvas = (context) => {
+    if (!model || !isVisible) { return }
 
     context.clearRect(0,0, cellSize * gridWidth, cellSize * gridHeight)
 
     const nowMs = +new Date()
 
-    particles.forEach((particle) => {
+    model.particles.forEach((particle) => {
       context.beginPath();
       context.arc(cellSize * (particle.position[0] + 0.5), cellSize * (particle.position[1] + 0.5),
                   cellSize / 2, 0, 2 * Math.PI, false);
@@ -110,58 +88,12 @@ class Dfa extends React.Component {
     })
   }
 
-  onInterval = () => {
-    const { gridWidth, gridHeight, stepsPerFrame, resetOnFrozen } = this.props
-    let { particles, cellIsFrozen, isVisible } = this.state
-
-    if (!particles || !isVisible) { return }
-
-    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]]
-    const numDirections = directions.length
-
-    _.range(stepsPerFrame).forEach(() => {
-      // motion phase
-      particles.forEach((particle) => {
-        if (particle.isFrozen) { return }
-        const direction = directions[Math.floor(numDirections * Math.random())]
-        let dx = direction[0], dy = direction[1]
-        const lastDirection = particle.lastDirection
-        if (lastDirection && lastDirection[0] === -dx && lastDirection[1] === -dy) {
-          dx = -dx
-          dy = -dy
-        }
-        particle.position[0] = mod(particle.position[0] + dx, gridWidth)
-        particle.position[1] = mod(particle.position[1] + dy, gridHeight)
-        particle.lastDirection = [dx, dy]
-      })
-
-      // freezing phase
-      particles.forEach((particle) => {
-        if (particle.isFrozen) { return }
-        let shouldFreeze = false
-        for (let i = 0; i < numDirections; i++) {
-          const direction = directions[i]
-          const col = cellIsFrozen[particle.position[0] + direction[0]]
-          if (col && col[particle.position[1] + direction[1]]) {
-            shouldFreeze = true
-            break
-          }
-        }
-        if (shouldFreeze) {
-          cellIsFrozen[particle.position[0]][particle.position[1]] = true
-          particle.isFrozen = true
-          particle.freezeMs = +new Date()
-        }
-      })
-    })
-
-    if (resetOnFrozen && !this.resetQueued && _.every(particles, (particle) => particle.isFrozen)) {
-      setTimeout(() => {this.resetQueued = false; this.initialize(true)}, 1000)
-      this.resetQueued = true
-    }
-
-    this.setState({particles, cellIsFrozen})
-  }
+  return (
+    <div ref={rootNode}>
+      <Canvas width={cellSize * gridWidth} height={cellSize * gridHeight}
+              style={{ display: 'block', margin: '20px auto', background: 'white',
+                        filter: isVisible ? '' : 'blur(4px)'}}
+              renderCanvas={renderCanvas} />
+    </div>
+  )
 }
-
-module.exports = Dfa;

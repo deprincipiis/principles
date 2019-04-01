@@ -27,22 +27,22 @@ In thinking about systems, it is helpful to start with simple models which are e
 
 [div className:"FlexRow"]
 [div]
+Black particles are not frozen. They bounce around randomly.
 [Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
      numParticles: 10 clickToFreeze: false
      frameMs: 200 stepsPerFrame: 1/]
-Black particles are not frozen. They bounce around randomly.
 [/div]
 [div]
+Green particles are frozen. They sit still.
 [Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
      numParticles: 10 preFreeze: true
      frameMs: 200 stepsPerFrame: 1/]
-Green particles are frozen. They sit still.
 [/div]
 [div]
+When a black particle touches a green particle, it freezes into a green particle
 [Dfa cellSize: 15 gridWidth: 10 gridHeight: 10
      numParticles: 10 preSeed: true resetOnFrozen: true
      frameMs: 200 stepsPerFrame: 1/]
-When a black particle touches a green particle, it freezes into a green particle
 [/div]
 [/div]
 
@@ -50,11 +50,13 @@ The *parts* of this system are the particles. Particles are simple – all they 
 
 So let's find out! Here is a system with one hundred times as many particles as the little boxes above:
 
+[var name:'dropSeedTime1' value:0 /]
 [Dfa cellSize: 3 gridWidth: 100 gridHeight: 100
      numParticles: 1000
-     frameMs: 20 stepsPerFrame: 1 ref: 'fancyDfa'/]
+     frameMs: 20 stepsPerFrame: 1
+     dropSeedTime: dropSeedTime1/]
 
-When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancyDfa.component.go()`]drop a frozen seed in the center[/button].
+When you're ready, [button style:`{textAlign: 'center'}` onClick: `dropSeedTime1 = +new Date()`]drop a frozen seed in the center[/button].
 
 The result doesn't match our guess at all. Instead of forming a blob, freezing particles grow outward from the seed, like a tree's roots or electric sparks.
 
@@ -67,11 +69,13 @@ Together, the particles make a pattern which was not encoded in their rules. We 
 
 To see how the pattern continues, at a higher level of scale, here is a system with nine times as many particles as last time:
 
+[var name:'dropSeedTime2' value:0 /]
 [Dfa cellSize: 1 gridWidth: 300 gridHeight: 300
      numParticles: 9000
-     frameMs: 0 stepsPerFrame: 20 ref: 'fancierDfa'/]
+     frameMs: 0 stepsPerFrame: 20
+     dropSeedTime: dropSeedTime2/]
 
-When you're ready, [button style:`{textAlign: 'center'}` onClick: `refs.fancierDfa.component.go()`]drop a frozen seed in the center[/button].
+When you're ready, [button style:`{textAlign: 'center'}` onClick: `dropSeedTime2 = +new Date()`]drop a frozen seed in the center[/button].
 
 # Credits
 
