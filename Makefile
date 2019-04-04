@@ -2,7 +2,13 @@ NODE_BIN = node_modules/.bin
 COMMON_DEPS = $(shell find components)
 
 
-build: build/index.html build/emergence/index.html build/abstraction/index.html build/phase-transition/index.html
+
+build: \
+	build/index.html \
+	build/emergence/index.html \
+	build/abstraction/index.html \
+	build/phase-transition/index.html \
+	build/hysteresis/index.html \
 
 build/index.html: src/index.idyll $(shell find src/static) $(COMMON_DEPS)
 	$(NODE_BIN)/idyll build -i $< --static src/static -o build
@@ -15,6 +21,9 @@ build/abstraction/index.html: src/abstraction/index.idyll $(shell find src/abstr
 
 build/phase-transition/index.html: src/phase-transition/index.idyll $(shell find src/phase-transition/static) $(COMMON_DEPS)
 	$(NODE_BIN)/idyll build -i $< --static src/phase-transition/static -o build/phase-transition
+
+build/hysteresis/index.html: src/hysteresis/index.idyll $(shell find src/hysteresis/static) $(COMMON_DEPS)
+	$(NODE_BIN)/idyll build -i $< --static src/hysteresis/static -o build/hysteresis
 
 clean:
 	rm -rf build

@@ -1,0 +1,26 @@
+[meta title:"Principles: Hysteresis" /]
+
+[i]back to [a href:".."]Principles[/a][/i]
+
+[Header
+  title:"Hysteresis"
+  subtitle:"Systems can have slack." /]
+
+Hysteresis is a fancy word for a simple idea. [Wikipedia](https://en.wikipedia.org/wiki/Hysteresis) says: [i]Hysteresis is the dependence of the state of a system on its history.[/i]
+
+But you can just say: [i]Hysteresis is when a system has [strong]slack[/strong].[/i]
+
+# Two machines
+
+[div className:"FlexRow"]
+[div]
+In this one, the [span className:"output-color"]output pin[/span] of the slider is rigidly connected to the [span className:"input-color"]input pin[/span].
+
+▶ [strong]Try dragging the [span className:"input-color"]input pin[/span].[/strong]
+[/div]
+[div]
+In this one, the [span className:"output-color"]output pin[/span] of the slider is connected to the [span className:"input-color"]input pin[/span], but it's not a rigid connection: there's slack.
+
+▶ [strong]Try dragging the [span className:"input-color"]input pin[/span].[/strong]
+[/div]
+[/div]
