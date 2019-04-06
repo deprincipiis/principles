@@ -36,6 +36,8 @@ then `make` will automatically re-run when you change the `src` directory. Nice!
 
 (Idyll includes its own auto-reresh feature, but it doesn't work well with multiple source files, so we're not using it right now.)
 
+During development, you can prepend `IDYLL_FLAGS=--no-minify=true` to one of these commands to speed things up. This is hacky, since `make` won't remember when output is debug output or prod output. (Good to improve this.)
+
 ## Publishing
 
 To push output files to https://deprincipiis.github.io/principles/, run:
