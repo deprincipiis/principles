@@ -43,12 +43,16 @@ These charts show the way that the [span className:"input-color"]input pin ([i]x
 [div style:`{minWidth: 250}`]
 The first plot is a simple curve. Every vertical line hits only one point, which means that the position of the output pin is a *function* of the position of the input pin. Knowing where the input pin is, at some instant of time, is all you need to know to determine exactly where the output pin is.
 
-[Lorem height:"40%"]two inputs, two outputs[/Lorem]
+[SvgSliderOnTrack trackLength:350 padding:30 inputPos:100 outputPos:170/]
+[SvgSliderOnTrack trackLength:350 padding:30 inputPos:170 outputPos:240/]
+
 [/div]
 [div style:`{minWidth: 250}`]
 But the second plot is made out of loops. At a fixed [i]x[/i]-position (corresponding to a fixed input-pin position), there are multiple possible [i]y[/i]-positions (corresponding to multiple output-pin positions). If you want to know where the output pin is at some instant of time, knowing the input pin's location is not enough.
 
-[Lorem height:"40%"]two inputs, same output[/Lorem]
+[SvgSliderOnTrack trackLength:350 padding:30 inputPos:100 outputPos:30/]
+[SvgSliderOnTrack trackLength:350 padding:30 inputPos:100 outputPos:130/]
+
 [/div]
 [/div]
 [/Center]
