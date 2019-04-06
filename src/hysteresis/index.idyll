@@ -12,15 +12,106 @@ But you can just say: [i]Hysteresis is when a system has [strong]slack[/strong].
 
 # Two machines
 
-[div className:"FlexRow"]
-[div]
+Here are two machines you can control.
+
+[FullWidth]
+[Center]
+[div className:"FlexRow" style:`{maxWidth: 700}`]
+[div style:`{minWidth: 250}`]
 In this one, the [span className:"output-color"]output pin[/span] of the slider is rigidly connected to the [span className:"input-color"]input pin[/span].
 
 ▶ [strong]Try dragging the [span className:"input-color"]input pin[/span].[/strong]
+
+[Lorem]slider & 2D plot[/Lorem]
 [/div]
-[div]
+[div style:`{minWidth: 250}`]
 In this one, the [span className:"output-color"]output pin[/span] of the slider is connected to the [span className:"input-color"]input pin[/span], but it's not a rigid connection: there's slack.
 
 ▶ [strong]Try dragging the [span className:"input-color"]input pin[/span].[/strong]
+
+[Lorem]slider & 2D plot[/Lorem]
 [/div]
 [/div]
+[/Center]
+[/FullWidth]
+
+These charts show the way that the [span className:"input-color"]input pin ([i]x[/i])[/span] determines the [span className:"output-color"]output pin ([i]y[/i])[/span]. But they look very different.
+
+[FullWidth]
+[Center]
+[div className:"FlexRow" style:`{maxWidth: 700}`]
+[div style:`{minWidth: 250}`]
+The first plot is a simple curve. Every vertical line hits only one point, which means that the position of the output pin is a *function* of the position of the input pin. Knowing where the input pin is, at some instant of time, is all you need to know to determine exactly where the output pin is.
+
+[Lorem height:"40%"]two inputs, two outputs[/Lorem]
+[/div]
+[div style:`{minWidth: 250}`]
+But the second plot is made out of loops. At a fixed [i]x[/i]-position (corresponding to a fixed input-pin position), there are multiple possible [i]y[/i]-positions (corresponding to multiple output-pin positions). If you want to know where the output pin is at some instant of time, knowing the input pin's location is not enough.
+
+[Lorem height:"40%"]two inputs, same output[/Lorem]
+[/div]
+[/div]
+[/Center]
+[/FullWidth]
+
+When a system has **slack**, the current input doesn't directly determine the current output. That's all that hysteresis is.
+
+# Slack as metaphor
+
+A lot of other things in the world work the same way as these sliders, even if they don't look the same at first glance. Here's one metaphor I like: Suppose the track is a happiness scale. The location of the [span className:"input-color"]input pin[/span] represents the external circumstances of your life. The [span className:"output-color"]output pin[/span] measures your internal mood.
+
+* The slackless system, on the left, models a world where your mood depends directly on what's going around you at every instant. How happy are you right now? We can find out by looking at what's going on in your life, and computing from that data alone.
+
+* The system with slack, on the right, models a world where external circumstances push your mood around, but don't directly determine it. If the external situation is much better or worse than your present mood calls for, your mood will shift to stay within range, but your mood generally just tries to stay put. There's some kind of inertia at work.
+
+Which of these models do you think better describes the dynamics of your moods? Do either of them even come close? What other phenomena are these systems missing, which would help them represent your emotional life?
+
+# Hysteresis and history
+
+It feels right to say that, when your system has slack, the output just isn't determined by the input *at all*. But the Wikipedia definition at the top says something different. It says something about the output being determined by "history".
+
+So let's give the computer some "history" to play with.
+
+▶ [strong]Set a trajectory for the input pin.[/strong]
+
+Click & drag to define the [span className:"input-color-path"]path of the input pin[/span] over time. Hover to see the [span className:"output-color-path"]future trajectory of the output pin[/span] from the point you've selected. The [span className:"output-color-region"]shaded region[/span] shows the region where the output pin could possibly end up, given the movement of the input pin.
+
+[Lorem]path-drawing plot gadget[/Lorem]
+
+Experiment a bit. How does the trajectory of the input pin affect the possible trajectories of the output pin? When is the trajectory of the input pin enough to determine where the output pin ends up?
+
+I think there are two ways the input pin can be said to completely determine the output pin, despite our earlier sense that they were not so tightly bound together:
+
+[ol]
+[li]
+First of all, if you know where the output pin was at one moment in time, and you know [span className:"input-color-path"]how the input pin moved since then[/span], you can figure out [span className:"output-color-path"]how the output pin will move[/span]. That's the reason why we can draw the [span className:"output-color-path"]future trajectory of the output pin[/span] (given a starting point) as a curve, rather than a shaded region.
+
+One way to put it — the slider has a *memory* (the position of the output pin), which has its own existence, independent of the input. But the way this memory changes over time is determined by the input.
+[/li]
+[li]
+But also, once the input pin moves back and forth enough, it doesn't matter where it started. The [span className:"output-color-region"]shaded region[/span] of possibility funnels down to a single curve.
+
+So, if the external forces are strong enough, the slider's memory is overwhelmed. It doesn't matter where the memory started out — enough has happened input-wise since then that the memory is irrelevant.
+[/li]
+[/ol]
+
+# Hysteresis in the natural world
+
+Chains have slack, and moods have memories. But many systems in the natural world exhibit hysteresis, without looking obviously like they should have slack or memory.
+
+For instance: If you take a piece of metal, and expose it to a magnetic field [i]H[/i] (by charging up an electromagnet next to it, or just bringing a powerful magnet nearby), the natural mini-magnets of the metal will align with the field, giving the metal a magnetization [i]M[/i] it didn't have before. But then, if you turn off the outside field, the mini-magnets will stay aligned, so [i]M[/i] will stick around even without [i]H[/i].
+
+It's like [i]H[/i] is the [span className:"input-color"]input pin[/span] and [i]M[/i] is the [span className:"output-color"]output pin[/span] in some weird slider system.
+
+So the blue loop in the center of this "hysteretic magnetization curve" should look familiar from your slider curve at the beginning:
+
+[img src:'static/magnetization.png' alt:'Hysteretic magnetization curve'/]
+
+# Learn more
+
+
+# Credits
+
+* Text & simulation: Joshua Horowitz
+
+* Hysteretic magnetization curve: [Tem5psu / Hysteresis loop for a ferro- or ferrimagnet / CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Magnetic_hysteresis.png)
