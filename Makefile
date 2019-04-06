@@ -32,4 +32,4 @@ serve: build
 	$(NODE_BIN)/http-server build
 
 publish: build
-	$(NODE_BIN)/gh-pages -d buildff
+	$(NODE_BIN)/gh-pages -d build
