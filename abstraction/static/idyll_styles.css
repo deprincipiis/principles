@@ -642,3 +642,27 @@ pre {
   flex-basis: 0;
   margin: 0 10px;
 }
+
+/* For hysteresis */
+
+.output-color {
+  background-color: pink;
+}
+
+.output-color-path {
+  color: #ff0f39;
+  font-weight: bold;
+}
+
+.output-color-region {
+  background-color: #ffd4db;
+}
+
+.input-color {
+  background-color: lightblue;
+}
+
+.input-color-path {
+  color: #44a6c6;
+  font-weight: bold;
+}
